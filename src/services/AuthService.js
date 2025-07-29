@@ -22,6 +22,11 @@ export const authService = {
     return await api.post('/user/forget-password', { email });
   },
 
+  resetPassword: async (token, resetData) => {
+    return await api.post(`/user/reset-password/${token}`, resetData);
+  },
+
+
   logout: () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
