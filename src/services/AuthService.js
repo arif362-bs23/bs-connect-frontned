@@ -18,6 +18,10 @@ export const authService = {
     return response.data;
   },
 
+  forgotPassword: async (email) => {
+    return await api.post('/user/forget-password', { email });
+  },
+
   logout: () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');

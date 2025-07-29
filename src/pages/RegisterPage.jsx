@@ -3,6 +3,7 @@ import InputField from "../components/auth/InputField";
 import SelectField from "../components/auth/SelectField";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import { authService } from '../services/AuthService';
 
 const Register = () => {
@@ -12,13 +13,11 @@ const Register = () => {
   const registerMutation = useMutation({
     mutationFn: authService.register,
     onSuccess: () => {
-      // Redirect to login page after successful registration
+      toast.success('Registration successful! Please log in.');
       navigate('/user/login');
     },
     onError: (error) => {
-      // Handle registration error (e.g., show a toast notification)
-      console.error('Registration failed:', error);
-      alert(error.response?.data?.message || 'Registration failed. Please try again.');
+      toast.error(error.response?.data?.message || 'Registration failed. Please try again.');
     },
   });
 
@@ -58,12 +57,6 @@ const Register = () => {
                 value === methods.getValues("password") || "Passwords do not match",
             }}
           />
-
-          {registerMutation.isError && (
-            <div className="text-red-500 text-sm text-center">
-              {registerMutation.error?.response?.data?.message || 'Registration failed. Please try again.'}
-            </div>
-          )}
 
           <button
             type="submit"

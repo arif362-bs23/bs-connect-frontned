@@ -2,6 +2,7 @@ import React from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import { authService } from '../../services/AuthService';
 import InputField from "./InputField";
 import SubmitButton from "./SubmitButton";
@@ -13,14 +14,11 @@ const LoginForm = () => {
   const loginMutation = useMutation({
     mutationFn: authService.login,
     onSuccess: (data) => {
-      console.log('Login successful:', data);
-      // Redirect to dashboard or home page
+      toast.success('Login successful!');
       navigate('/dashboard');
     },
     onError: (error) => {
-      console.error('Login failed:', error);
-      // Handle login error (show toast, etc.)
-      alert(error.response?.data?.message || 'Login failed. Please try again.');
+      toast.error(error.response?.data?.detail || 'Login failed. Please try again.');
     }
   });
 
@@ -49,13 +47,6 @@ const LoginForm = () => {
           disabled={loginMutation.isPending}
         />
 
-        {/* Error message */}
-        {loginMutation.isError && (
-          <div className="text-red-500 text-sm text-center">
-            {loginMutation.error?.response?.data?.message || 'Login failed. Please try again.'}
-          </div>
-        )}
-
         <SubmitButton
           isPending={loginMutation.isPending}
           text="Log In"
@@ -65,7 +56,7 @@ const LoginForm = () => {
         {/* Forgot Password */}
         <div className="text-center">
           <Link
-            to="#"
+            to="/forgot-password"
             className="text-blue-600 hover:underline text-sm"
           >
             Forgot Password?
