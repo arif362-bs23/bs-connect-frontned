@@ -1,17 +1,32 @@
 import { useForm, FormProvider } from "react-hook-form";
 import InputField from "../components/auth/InputField";
 import SelectField from "../components/auth/SelectField";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from '@tanstack/react-query';
+import { authService } from '../services/AuthService';
 
 const Register = () => {
   const methods = useForm();
+  const navigate = useNavigate();
+
+  const registerMutation = useMutation({
+    mutationFn: authService.register,
+    onSuccess: () => {
+      // Redirect to login page after successful registration
+      navigate('/user/login');
+    },
+    onError: (error) => {
+      // Handle registration error (e.g., show a toast notification)
+      console.error('Registration failed:', error);
+      alert(error.response?.data?.message || 'Registration failed. Please try again.');
+    },
+  });
 
   const onSubmit = (data) => {
-    console.log("Form Data:", data);
-    // Here you'd typically call an API
+    registerMutation.mutate(data);
   };
 
-  const genderOptions = ["male", "female", "other"];
+  const genderOptions = ["male", "female"];
 
   return (
     <div className="w-full lg:w-1/3 border border-primary-200 p-6 rounded mx-auto mt-10">
@@ -21,6 +36,7 @@ const Register = () => {
           <InputField name="name" label="Full Name" placeholder="Full name" />
           <InputField name="email" label="Email address" type="email" placeholder="email@example.com" />
           <InputField name="birthdate" label="Date of birth" type="date" />
+          <SelectField name="gender" label="Gender" options={genderOptions} />
           <InputField
             name="password"
             label="Password"
@@ -29,10 +45,6 @@ const Register = () => {
             validation={{
               required: "Password is required",
               minLength: { value: 8, message: "Password must be at least 8 characters long" },
-              pattern: {
-                value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/,
-                message: "Password must contain at least one letter, one number, and be at least 8 characters long",
-              },
             }}
           />
           <InputField
@@ -46,19 +58,25 @@ const Register = () => {
                 value === methods.getValues("password") || "Passwords do not match",
             }}
           />
-          <InputField name="password_confirmation" label="Confirm Password" type="password" placeholder="Confirm password" />
+
+          {registerMutation.isError && (
+            <div className="text-red-500 text-sm text-center">
+              {registerMutation.error?.response?.data?.message || 'Registration failed. Please try again.'}
+            </div>
+          )}
 
           <button
             type="submit"
+            disabled={registerMutation.isPending}
             className="w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
           >
-            Create Account
+            {registerMutation.isPending ? 'Creating Account...' : 'Create Account'}
           </button>
         </form>
 
         <div className="mt-6 text-center text-sm text-zinc-600">
           Already have an account?{" "}
-          <Link className="underline text-blue-600" to="/login">
+          <Link className="underline text-blue-600" to="/user/login">
             Login
           </Link>
         </div>

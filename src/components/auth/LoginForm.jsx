@@ -22,6 +22,7 @@ const LoginForm = () => {
     onError: (error) => {
       console.error('Login failed:', error);
       // Handle login error (show toast, etc.)
+      alert(error.response?.data?.message || 'Login failed. Please try again.');     
     }
   });
 

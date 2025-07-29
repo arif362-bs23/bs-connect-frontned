@@ -13,6 +13,11 @@ export const authService = {
     return { token, user };
   },
   
+  register: async (userData) => {
+    const response = await api.post('/user/', userData);
+    return response.data;
+  },
+
   logout: () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
