@@ -1,18 +1,32 @@
-// src/components/LoginForm.jsx
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from '@tanstack/react-query';
+import { authService } from '../../services/AuthService';
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  const loginMutation = useMutation({
+    mutationFn: authService.login,
+    onSuccess: (data) => {
+      console.log('Login successful:', data);
+      // Redirect to dashboard or home page
+      navigate('/dashboard');
+    },
+    onError: (error) => {
+      console.error('Login failed:', error);
+      // Handle login error (show toast, etc.)
+    }
+  });
+
   const onSubmit = (data) => {
-    // You'll implement actual login logic later
-    console.log("Form Data:", data);
+    loginMutation.mutate(data);
   };
 
   return (
@@ -24,6 +38,7 @@ const LoginForm = () => {
           {...register("email", { required: "Email is required" })}
           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           placeholder="Email address"
+          disabled={loginMutation.isPending}
         />
         {errors.email && (
           <p className="text-red-500 text-sm">{errors.email.message}</p>
@@ -37,18 +52,27 @@ const LoginForm = () => {
           {...register("password", { required: "Password is required" })}
           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           placeholder="Password"
+          disabled={loginMutation.isPending}
         />
         {errors.password && (
           <p className="text-red-500 text-sm">{errors.password.message}</p>
         )}
       </div>
 
+      {/* Error message */}
+      {loginMutation.isError && (
+        <div className="text-red-500 text-sm text-center">
+          {loginMutation.error?.response?.data?.message || 'Login failed. Please try again.'}
+        </div>
+      )}
+
       {/* Login Button */}
       <button
         type="submit"
-        className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-bold hover:bg-blue-700 transition duration-200"
+        disabled={loginMutation.isPending}
+        className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-bold hover:bg-blue-700 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Log In
+        {loginMutation.isPending ? 'Logging in...' : 'Log In'}
       </button>
 
       {/* Forgot Password */}
@@ -67,7 +91,7 @@ const LoginForm = () => {
       <div className="flex text-center justify-between gap-5">
         <div>
           <Link
-            to="#"
+            to="/register"
             className="text-blue-600 hover:underline text-sm"
           >
             Create Account

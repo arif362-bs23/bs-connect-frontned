@@ -1,27 +1,10 @@
-import Header from "../components/common/Header";
-import { useAuth } from "../hooks/useAuth"
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
+import { authService } from '../services/AuthService';
 
-const PrivateRoutes = ()=> {
-    const { auth } = useAuth();
+const ProtectedRoute = ({ children }) => {
+  const isAuthenticated = authService.isAuthenticated();
+  
+  return isAuthenticated ? children : <Navigate to="/user/login" replace />;
+};
 
-    return (
-        <>
-            {auth?.user ? (
-                <>
-                    <Header />
-                    <main className="mx-auto max-w-[1020px] py-8">
-                        <div className="container">
-                            <Outlet />
-                        </div>
-                    </main>
-                </>
-            ) : (
-                <Navigate to="/login" />
-            )}
-            
-        </>
-    )
-}
-
-export default PrivateRoutes;
+export default ProtectedRoute;
