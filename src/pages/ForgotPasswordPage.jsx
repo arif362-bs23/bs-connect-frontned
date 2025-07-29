@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { authService } from '../services/AuthService';
 import InputField from "../components/auth/InputField";
 import SubmitButton from "../components/auth/SubmitButton";
+import { paths } from "../routes/path";
 
 const ForgotPasswordPage = () => {
   const methods = useForm();
@@ -49,7 +50,7 @@ const ForgotPasswordPage = () => {
 
       <div className="text-center text-sm text-zinc-400 mt-4">
         Or, return to{" "}
-        <Link className="underline" to="/user/login">
+        <Link className="underline" to={paths.LOGIN}>
           log in
         </Link>
       </div>

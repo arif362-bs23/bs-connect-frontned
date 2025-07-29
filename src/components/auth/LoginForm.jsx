@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { authService } from '../../services/AuthService';
 import InputField from "./InputField";
 import SubmitButton from "./SubmitButton";
+import { paths } from "../../routes/path";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const LoginForm = () => {
     mutationFn: authService.login,
     onSuccess: (data) => {
       toast.success('Login successful!');
-      navigate('/dashboard');
+      navigate({ pathname: paths.DASHBOARD });
     },
     onError: (error) => {
       toast.error(error.response?.data?.detail || 'Login failed. Please try again.');

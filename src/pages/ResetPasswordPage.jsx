@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { authService } from '../services/AuthService';
 import { toast } from 'react-toastify';
+import { paths } from '../routes/path';
 
 const ResetPasswordPage = () => {
   const { token } = useParams();
@@ -20,7 +21,7 @@ const ResetPasswordPage = () => {
     try {
       await authService.resetPassword(token, data);
       toast.success('Password has been reset successfully');
-      navigate('/login');
+      navigate({ pathname: paths.LOGIN });
     } catch (error) {
       const response = error.response;
       

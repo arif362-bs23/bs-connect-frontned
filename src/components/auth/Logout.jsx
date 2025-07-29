@@ -1,13 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../../services/AuthService';
+import { paths } from '../../routes/path';
 
 const LogoutButton = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
     authService.logout();
-    navigate('/user/login');
+    navigate(paths.LOGIN);
   };
 
   return (

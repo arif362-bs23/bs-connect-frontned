@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { authService } from '../services/AuthService';
+import { paths } from "../routes/path";
 
 const Register = () => {
   const methods = useForm();
@@ -14,7 +15,7 @@ const Register = () => {
     mutationFn: authService.register,
     onSuccess: () => {
       toast.success('Registration successful! Please log in.');
-      navigate('/user/login');
+      navigate(paths.LOGIN);
     },
     onError: (error) => {
       toast.error(error.response?.data?.message || 'Registration failed. Please try again.');
@@ -69,7 +70,7 @@ const Register = () => {
 
         <div className="mt-6 text-center text-sm text-zinc-600">
           Already have an account?{" "}
-          <Link className="underline text-blue-600" to="/user/login">
+          <Link className="underline text-blue-600" to={paths.LOGIN}>
             Login
           </Link>
         </div>

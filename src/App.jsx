@@ -10,6 +10,7 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import DashboardPage from './pages/DashboardPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import { paths } from './routes/path';
 
 // Create a client
 const queryClient = new QueryClient();
@@ -32,12 +33,12 @@ function App() {
           />
           <Routes>
             {/* Public Routes */}
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/user/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-            <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
-            
+            <Route path={paths.HOME} element={<Navigate to={paths.LOGIN} replace />} />
+            <Route path={paths.LOGIN}  element={<LoginPage />} />
+            <Route path={paths.REGISTER} element={<RegisterPage />} />
+            <Route path={paths.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
+            <Route path={paths.RESET_PASSWORD} element={<ResetPasswordPage />} />
+
             {/* Protected Route - Only DashboardPage */}
             <Route 
               path="/dashboard" 
@@ -49,7 +50,7 @@ function App() {
             />
             
             {/* Catch all route - redirect to home */}
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<Navigate to={paths.LOGIN} replace />} />
           </Routes>
         </Router>
       </AuthProvider>
