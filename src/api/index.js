@@ -60,4 +60,21 @@ api.interceptors.response.use(
   }
 );
 
+export const getUserProfile = async (userId) => {
+    const { data } = await api.get(`/user/${userId}`);
+    return data;
+};
+
+export const uploadCoverImage = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const { data } = await api.post('/user/upload-cover-image', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+    return data;
+};
+
 export default api;
