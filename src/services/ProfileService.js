@@ -5,3 +5,27 @@ export const getUserProfile = async (userId) => {
     
   return response.data;
 };
+
+export const uploadCoverImage = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const { data } = await api.post('/user/upload-cover-image', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+    return data;
+};
+
+export const uploadProfileImage = async (file) => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const { data } = await api.post('/user/upload-profile-image', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return data;
+};

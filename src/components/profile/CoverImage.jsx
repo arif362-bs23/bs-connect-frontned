@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { uploadCoverImage } from '../../api';
+import { uploadCoverImage } from '../../services/ProfileService';
 import { toast } from 'react-toastify';
 
 const CoverImage = ({ src, isOwner, userId }) => {

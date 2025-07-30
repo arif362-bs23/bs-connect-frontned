@@ -5,7 +5,6 @@ import CoverImage from '../components/profile/CoverImage';
 import ProfileImage from '../components/profile/ProfileImage';
 import FollowButton from '../components/profile/FollowButton';
 import ProfileNav from '../components/profile/ProfileNav';
-import { useAuth } from '../hooks/useAuth';
 import { getUserProfile } from '../services/ProfileService';
 import { authService } from '../services/AuthService';
 
@@ -16,8 +15,6 @@ const ProfilePage = () => {
     queryKey: ['profile', userId],
     queryFn: () => getUserProfile(userId),
   });
-
-  console.log('User data:', user);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -40,12 +37,12 @@ const ProfilePage = () => {
           <CoverImage src={user.cover_image} isOwner={isOwnProfile} userId={userId} lastUpdated={user.updated_at} />
 
           <div className="relative px-4 md:px-8 pb-4 flex flex-col md:flex-row items-center md:items-end">
-            <ProfileImage src={user.profile_image} isOwner={isOwnProfile} />
+            <ProfileImage src={user.profile_image} isOwner={isOwnProfile} userId={userId} lastUpdated={user.updated_at} />
 
             <div className="mt-20 md:mt-0 md:ml-44 text-center md:text-left flex-1">
               <h1 className="text-2xl md:text-3xl font-bold">{user.name}</h1>
               <p className="text-gray-600 text-sm md:text-base">
-                {user.follower_count} Followers | {user.following_count} Following
+                {user.follower_count ? user.follower_count : 0} Followers | {user.following_count ? user.following_count : 0} Following
               </p>
             </div>
 
