@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 const CoverImage = ({ src, isOwner, userId }) => {
   const queryClient = useQueryClient();
   const fileInputRef = useRef(null);
-  console.log(src);
 
   const mutation = useMutation({
     mutationFn: uploadCoverImage,
