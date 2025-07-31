@@ -6,4 +6,5 @@ export const paths = {
     RESET_PASSWORD: '/reset-password/:token',
     DASHBOARD: '/dashboard',
     PROFILE: '/user/:userId',
+    LOGOUT: '/logout',
 };

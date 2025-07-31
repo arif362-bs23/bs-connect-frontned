@@ -30,7 +30,22 @@ export const uploadProfileImage = async (file) => {
   return data;
 };
 
-export const updateBio = async (bioData) => {
-  const response = await api.put('/user/profile', bioData);
+export const updateUserProfile = async (profileData) => {
+  const response = await api.put('/user/profile', profileData);
   return response.data;
+};
+
+export const getFollowers = async (userId) => {
+  const response = await api.get(`/user/${userId}/followers`);
+  return response.data;
+};
+
+export const getFollowing = async (userId) => {
+  const response = await api.get(`/user/${userId}/following`);
+  return response.data;
+};
+
+export const toggleFollowUser = async (userId) => {
+    const response = await api.post(`/user/${userId}/follow`);
+    return response.data;
 };

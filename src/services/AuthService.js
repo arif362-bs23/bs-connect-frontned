@@ -9,6 +9,8 @@ export const authService = {
     localStorage.setItem('access_token', token.access_token);
     localStorage.setItem('refresh_token', token.refresh_token);
     localStorage.setItem('user', JSON.stringify(user));
+
+    
     
     return { token, user };
   },
@@ -31,6 +33,7 @@ export const authService = {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('user');
+
   },
   
   getCurrentUser: () => {
@@ -40,5 +43,5 @@ export const authService = {
   
   isAuthenticated: () => {
     return !!localStorage.getItem('access_token');
-  }
+  },
 };
