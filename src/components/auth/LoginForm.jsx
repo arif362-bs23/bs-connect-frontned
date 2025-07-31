@@ -16,7 +16,7 @@ const LoginForm = () => {
     mutationFn: authService.login,
     onSuccess: (data) => {
       toast.success('Login successful!');
-      navigate({ pathname: paths.DASHBOARD });
+      navigate(`/user/${data.user.id}`);
     },
     onError: (error) => {
       toast.error(error.response?.data?.detail || 'Login failed. Please try again.');
