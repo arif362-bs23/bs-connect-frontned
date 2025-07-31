@@ -41,7 +41,6 @@ export const authService = {
   },
   
   isAuthenticated: () => {
-    console.log(localStorage.getItem('access_token'));
     return !!localStorage.getItem('access_token');
   },
 };
