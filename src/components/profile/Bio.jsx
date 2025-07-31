@@ -3,7 +3,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateUserProfile } from '../../services/ProfileService';
 
-const Bio = ({ user }) => {
+const Bio = ({ user, isOwnProfile }) => {
   const { auth, updateUser } = useAuth();
   const queryClient = useQueryClient();
   const [isEditing, setIsEditing] = useState(false);
@@ -22,8 +22,6 @@ const Bio = ({ user }) => {
       });
     }
   }, [user]);
-
-  const isOwnProfile = auth?.user?.id === user?.id;
 
   const mutation = useMutation({
     mutationFn: updateUserProfile,

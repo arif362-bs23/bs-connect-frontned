@@ -11,6 +11,7 @@ import DashboardPage from './pages/DashboardPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import ProfilePage from './pages/ProfilePage';
+import LogoutPage from './pages/LogoutPage';
 import { paths } from './routes/path';
 
 // Create a client
@@ -40,6 +41,7 @@ function App() {
             <Route path={paths.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
             <Route path={paths.RESET_PASSWORD} element={<ResetPasswordPage />} />
             <Route path={paths.PROFILE} element={<ProfilePage />} />
+            <Route path={paths.LOGOUT} element={<LogoutPage />} />
 
             {/* Protected Route - Only DashboardPage */}
             <Route 

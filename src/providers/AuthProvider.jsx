@@ -38,8 +38,11 @@ const AuthProvider = ({ children }) => {
     setAuth({ token: null, user: null });
   };
 
-  const updateUser = (user) => {
-    setAuth((prevAuth) => ({ ...prevAuth, user }));
+  const updateUser = (updatedProfile) => {
+    setAuth((prevAuth) => ({
+      ...prevAuth,
+      user: { ...prevAuth.user, ...updatedProfile },
+    }));
   };
 
   return (

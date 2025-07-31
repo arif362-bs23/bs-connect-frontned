@@ -1,11 +1,11 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import CoverImage from "../components/profile/CoverImage";
 import ProfileImage from "../components/profile/ProfileImage";
 import FollowButton from "../components/profile/FollowButton";
 import ProfileNav from "../components/profile/ProfileNav";
-import { getUserProfile, getFollowers, getFollowing, toggleFollowUser } from "../services/ProfileService";
+import { getUserProfile, getFollowers, getFollowing} from "../services/ProfileService";
 import Bio from "../components/profile/Bio";
 import { useLocation } from "react-router-dom";
 import UserCard from "../components/profile/UserCard";
@@ -15,7 +15,6 @@ const ProfilePage = () => {
   const { userId } = useParams();
   const { search } = useLocation();
   const { auth } = useAuth();
-  const queryClient = useQueryClient();
   const currentTab = new URLSearchParams(search).get("tab") || "posts";
 
   const {
@@ -43,13 +42,6 @@ const ProfilePage = () => {
     queryKey: ["following", userId],
     queryFn: () => getFollowing(userId),
     enabled: currentTab === "following",
-  });
-
-  const followMutation = useMutation({
-    mutationFn: () => toggleFollowUser(userId),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["profile", userId]);
-    },
   });
 
   if (isLoading) {
@@ -160,7 +152,7 @@ const ProfilePage = () => {
                 <FollowButton
                   isFollowing={user.is_followed}
                   isOwnProfile={isOwnProfile}
-                  onToggleFollow={() => followMutation.mutate()}
+                  userId={userId}
                 />
               </div>
             </div>
@@ -175,7 +167,7 @@ const ProfilePage = () => {
       <div className="max-w-6xl mx-auto px-4 md:px-6 mt-4">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <div className="hidden lg:block">
-            <Bio user={user} />
+            <Bio user={user} isOwnProfile={isOwnProfile} />
           </div>
 
           <div className="lg:col-span-2">

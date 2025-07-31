@@ -7,14 +7,17 @@ import { authService } from '../../services/AuthService';
 import InputField from "./InputField";
 import SubmitButton from "./SubmitButton";
 import { paths } from "../../routes/path";
+import { useAuth } from '../../hooks/useAuth';
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const methods = useForm();
+  const { login } = useAuth();
 
   const loginMutation = useMutation({
     mutationFn: authService.login,
     onSuccess: (data) => {
+      login(data.token.access_token, data.user);
       toast.success('Login successful!');
       navigate(`/user/${data.user.id}`);
     },
