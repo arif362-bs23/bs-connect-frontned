@@ -29,3 +29,8 @@ export const uploadProfileImage = async (file) => {
   });
   return data;
 };
+
+export const updateBio = async (bioData) => {
+  const response = await api.put('/user/profile', bioData);
+  return response.data;
+};
