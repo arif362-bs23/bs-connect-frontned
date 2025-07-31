@@ -4,7 +4,7 @@ import { AuthContext } from "../context";
 
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("access_token");
     const user = localStorage.getItem("user");
     
     if (token && user) {
@@ -21,10 +21,10 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if(auth.token) {
-      localStorage.setItem("token", auth.token);
+      localStorage.setItem("access_token", auth.token);
       localStorage.setItem("user", JSON.stringify(auth.user));
     } else {
-      localStorage.removeItem("token");
+      localStorage.removeItem("access_token");
       localStorage.removeItem("user");
     }
 
@@ -38,8 +38,12 @@ const AuthProvider = ({ children }) => {
     setAuth({ token: null, user: null });
   };
 
+  const updateUser = (user) => {
+    setAuth((prevAuth) => ({ ...prevAuth, user }));
+  };
+
   return (
-    <AuthContext.Provider value={{ auth, login, logout }}>
+    <AuthContext.Provider value={{ auth, login, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

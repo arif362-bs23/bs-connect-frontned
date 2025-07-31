@@ -1,7 +1,8 @@
 import React from 'react';
 
 const FollowButton = ({ isFollowing, isOwnProfile, onToggleFollow }) => {
-  if (isOwnProfile) return null;
+  
+  if (isOwnProfile) return null; // Don't show follow button for own profile
 
   return (
     <button
