@@ -70,7 +70,6 @@ const ProfilePage = () => {
 
 
   const isOwnProfile = auth?.user?.id === user?.id;
-  console.log(isOwnProfile);
 
   const renderTabContent = () => {
     switch (currentTab) {
