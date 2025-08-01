@@ -49,3 +49,10 @@ export const toggleFollowUser = async (userId) => {
     const response = await api.post(`/user/${userId}/follow`);
     return response.data;
 };
+
+export const getUserPosts = async (userId, limit = 10, offset = 0) => {
+  const response = await api.get(`/posts/${userId}/posts`, {
+    params: { user_id: userId, limit, offset },
+  });
+  return response.data;
+};
