@@ -2,6 +2,7 @@ import React from "react";
 import { getRelativeTime } from "../../utility/getDiffTime.js";
 import PostMedia from "./PostMedia.jsx";
 import { useState } from "react";
+import SharedPostWrapper from "./SharedPostWrapper.jsx";
 
 const PostCard = ({ post,key,  isOwnProfile }) => {
   if (!post) return <div></div>;
@@ -81,9 +82,11 @@ const PostCard = ({ post,key,  isOwnProfile }) => {
       )}
 
       {/* Shared Post */}
-      {/* {isShared && (
-        <SharedPostWrapper post={post.original_post} />
-      )} */}
+      {isShared && (
+        <div className="px-4 py-2 border-t border-gray-100">
+          <SharedPostWrapper post={post.original_post} />
+        </div>
+      )}
 
       {/* Reaction, comment, share counts */}
       {/* <div className="px-4 py-2 border-t border-gray-100">
