@@ -5,11 +5,12 @@ import CoverImage from "../components/profile/CoverImage";
 import ProfileImage from "../components/profile/ProfileImage";
 import FollowButton from "../components/profile/FollowButton";
 import ProfileNav from "../components/profile/ProfileNav";
-import { getUserProfile, getFollowers, getFollowing} from "../services/ProfileService";
+import { getUserProfile, getFollowers, getFollowing, getUserPosts} from "../services/ProfileService";
 import Bio from "../components/profile/Bio";
 import { useLocation } from "react-router-dom";
 import UserCard from "../components/profile/UserCard";
 import { useAuth } from "../hooks/useAuth";
+import PostCard from "../components/post/PostCard";
 
 const ProfilePage = () => {
   const { userId } = useParams();
@@ -43,6 +44,18 @@ const ProfilePage = () => {
     queryFn: () => getFollowing(userId),
     enabled: currentTab === "following",
   });
+
+  const {
+    data: userPosts,
+    isLoading: isPostsLoading,
+  } = useQuery({
+    queryKey: ["userPosts", userId],
+    queryFn: () => getUserPosts(userId),
+    enabled: currentTab === "posts",
+  });
+
+
+  console.log("User posts:", userPosts);
 
   if (isLoading) {
     return (
@@ -105,15 +118,37 @@ const ProfilePage = () => {
           </div>
         );
 
-      default: 
+      case 'posts': 
+        return (
+          <div className="space-y-4">
+            <h2 className="text-xl font-bold mb-4">Posts</h2>
+            {isPostsLoading ? (
+              <div className="flex justify-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+              </div>
+            ) : userPosts?.length > 0 ? (
+              userPosts.map((post) => (
+                <PostCard key={post.id} post={post} isOwnProfile={isOwnProfile} />
+              ))
+            ) : (
+              <div className="text-center py-8 text-gray-500">
+                No posts available.
+              </div>
+            )}
+          </div>
+        );
+
+      default:
         return (
           <div className="text-center text-gray-500 py-12">
             <svg className="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No posts yet</h3>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">
+              No content available
+            </h3>
             <p className="text-gray-500">
-              {isOwnProfile ? "Share your first post to get started!" : `${user.name} hasn't posted anything yet.`}
+              Please select a different tab to view content.
             </p>
           </div>
         );
