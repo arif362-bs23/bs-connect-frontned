@@ -4,14 +4,15 @@ import PostMedia from "./PostMedia.jsx";
 import { useState } from "react";
 import SharedPostWrapper from "./SharedPostWrapper.jsx";
 
-const PostCard = ({ post,key,  isOwnProfile }) => {
+const PostCard = ({ post,  isOwnProfile }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   if (!post) return <div></div>;
   const user = post.user;
   const isOwner = isOwnProfile || (user && user.id === post.user_id);
   const isShared = !!post.original_post;
   const hasMedia = post.tagged_media?.length > 0;
 
-  const [isExpanded, setIsExpanded] = useState(false);
   const maxLength = 200; // Adjust this value as needed
   const shouldTruncate = post.content && post.content.length > maxLength;
 
@@ -20,7 +21,7 @@ const PostCard = ({ post,key,  isOwnProfile }) => {
       : post.content;
 
   return (
-    <div key={key} className="bg-white rounded-lg border shadow-sm mb-4 overflow-hidden">
+    <div className="bg-white rounded-lg border shadow-sm mb-4 overflow-hidden">
       <div className="p-4">
         {/* Header: Profile image + name + date + dropdown */}
         <div className="flex justify-between">
