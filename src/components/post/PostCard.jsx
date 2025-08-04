@@ -4,6 +4,7 @@ import PostMedia from "./PostMedia.jsx";
 import { useState } from "react";
 import SharedPostWrapper from "./SharedPostWrapper.jsx";
 import ReactionCount from "./ReactionCount.jsx";
+import ActionButtons from "./ActionButtons.jsx";
 
 const PostCard = ({ post,  isOwnProfile }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -103,9 +104,9 @@ const PostCard = ({ post,  isOwnProfile }) => {
       </div>
 
       {/* Like + Comment + Share Buttons */}
-      {/* <div className="flex border-t border-gray-100">
+      <div className="flex border-t border-gray-100">
         <ActionButtons post={post} />
-      </div> */}
+      </div>
     </div>
   );
 };
