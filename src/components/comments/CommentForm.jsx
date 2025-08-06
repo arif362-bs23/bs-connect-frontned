@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useCreateComment } from "../../services/CommentService";
+import { useAuth } from "../../hooks/useAuth";
 
 const CommentForm = ({ postId, parentId = null, onSuccess }) => {
     const [content, setContent] = useState("");
+    const { auth } = useAuth();
     const createCommentMutation = useCreateComment();
 
     const handleSubmit = async (e) => {
@@ -10,7 +12,7 @@ const CommentForm = ({ postId, parentId = null, onSuccess }) => {
         if (!content.trim()) return;
 
         createCommentMutation.mutate(
-            { postId, parentId, content },
+            { postId, parentId, content, auth },
             {
                 onSuccess: () => {
                     setContent("");
@@ -31,10 +33,10 @@ const CommentForm = ({ postId, parentId = null, onSuccess }) => {
             />
             <button
                 type="submit"
-                disabled={createCommentMutation.isLoading}
+                disabled={createCommentMutation.isPending}
                 className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm"
             >
-                {createCommentMutation.isLoading ? "Commenting..." : "Comment"}
+                {createCommentMutation.isPending ? "Commenting..." : "Comment"}
             </button>
         </form>
     );

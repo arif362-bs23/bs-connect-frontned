@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useReactToPost } from "../../services/PostService.js";
+import { useAuth } from "../../hooks/useAuth.js";
 
 const reactions = {
     like: "👍",
@@ -13,9 +14,10 @@ const ReactionButton = ({ postId, reacted_type }) => {
     const [hovered, setHovered] = useState(false);
     const containerRef = useRef(null);
     const { mutate: reactToPost } = useReactToPost();
+    const { auth } = useAuth();
 
     const handleReact = (type) => {
-        reactToPost({ postId, reactionType: type });
+        reactToPost({ postId, reactionType: type, auth });
         setHovered(false);
     };
 

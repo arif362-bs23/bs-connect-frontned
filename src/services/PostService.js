@@ -1,13 +1,23 @@
 import api from '../api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {toast} from "react-toastify";
+import React from "react";
 
 // React to a post
 export const useReactToPost = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async ({ postId, reactionType }) => {
+        mutationFn: async ({ postId, reactionType, auth }) => {
+            if (!auth.token) {
+                toast.info(
+                    React.createElement('div', null,
+                        'You must be logged in to react. ',
+                        React.createElement('a', { href: '/login', className: 'font-bold text-blue-600 hover:underline ml-1' }, 'Login here')
+                    )
+                );
+                return Promise.reject(new Error("User not authenticated"));
+            }
             // Add an empty object as the request body, as some backends require it for POST requests.
             const res = await api.post(`/posts/${postId}/reaction/${reactionType}`, {});
             return res.data;
@@ -18,7 +28,9 @@ export const useReactToPost = () => {
             queryClient.invalidateQueries(['posts']);
         },
         onError: (err) => {
-            console.error("Reacting to post failed:", err);
+            if (err.message !== "User not authenticated") {
+                console.error("Reacting to post failed:", err);
+            }
         },
     });
 };
@@ -27,17 +39,28 @@ export const useSharePost = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async (postId) => {
+        mutationFn: async ({postId, auth}) => {
+            if (!auth.token) {
+                toast.info(
+                    React.createElement('div', null,
+                        'You must be logged in to share. ',
+                        React.createElement('a', { href: '/login', className: 'font-bold text-blue-600 hover:underline ml-1' }, 'Login here')
+                    )
+                );
+                return Promise.reject(new Error("User not authenticated"));
+            }
             const res = await api.post(`/posts/${postId}/share`);
             return res.data;
         },
-        onSuccess: (_, postId) => {
+        onSuccess: (_, {postId}) => {
             toast.success("Post shared successfully!");
             queryClient.invalidateQueries(['post', postId]);
         },
         onError: (error) => {
-            console.error("Sharing failed:", error);
-            toast(error?.response?.data?.message || "Failed to share post.");
+            if (error.message !== "User not authenticated") {
+                console.error("Sharing failed:", error);
+                toast(error?.response?.data?.message || "Failed to share post.");
+            }
         },
     });
 };

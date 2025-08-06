@@ -1,21 +1,23 @@
 import React from "react";
 import { useSharePost } from "../../services/PostService.js";
+import { useAuth } from "../../hooks/useAuth.js";
 
 const ShareButton = ({ postId }) => {
-    const { mutate: sharePost, isLoading } = useSharePost();
+    const { mutate: sharePost, isPending } = useSharePost();
+    const { auth } = useAuth();
 
     const handleShare = () => {
-        if (isLoading) return;
-        sharePost(postId);
+        if (isPending) return;
+        sharePost({postId, auth});
     };
 
     return (
         <button
             onClick={handleShare}
             className="flex-1 flex items-center justify-center p-2 hover:bg-gray-100 transition-all"
-            disabled={isLoading}
+            disabled={isPending}
         >
-            🔄 {isLoading ? "Sharing..." : "Share"}
+            🔄 {isPending ? "Sharing..." : "Share"}
         </button>
     );
 };
