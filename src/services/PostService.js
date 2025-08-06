@@ -37,7 +37,12 @@ export const useSharePost = () => {
         },
         onError: (error) => {
             console.error("Sharing failed:", error);
-            alert(error?.response?.data?.message || "Failed to share post.");
+            toast(error?.response?.data?.message || "Failed to share post.");
         },
     });
+};
+
+export const getPostById = async (postId) => {
+    const response = await api.get(`/posts/${postId.queryKey[1]}`);
+    return response.data;
 };

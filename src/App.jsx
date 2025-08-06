@@ -13,6 +13,7 @@ import ResetPasswordPage from './pages/ResetPasswordPage';
 import ProfilePage from './pages/ProfilePage';
 import LogoutPage from './pages/LogoutPage';
 import { paths } from './routes/path';
+import PostPage from "./pages/PostPage.jsx";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -42,6 +43,7 @@ function App() {
             <Route path={paths.RESET_PASSWORD} element={<ResetPasswordPage />} />
             <Route path={paths.PROFILE} element={<ProfilePage />} />
             <Route path={paths.LOGOUT} element={<LogoutPage />} />
+            <Route path={paths.POST} element={<PostPage />} />
 
             {/* Protected Route - Only DashboardPage */}
             <Route 
