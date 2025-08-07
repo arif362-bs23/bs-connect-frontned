@@ -11,7 +11,6 @@ const LogoutButton = () => {
   const handleLogout = () => {
     authService.logout();
     logout();
-    window.location.reload();
     navigate(paths.LOGIN);
   };
 
