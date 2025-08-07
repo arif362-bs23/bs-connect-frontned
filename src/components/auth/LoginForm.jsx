@@ -60,7 +60,7 @@ const LoginForm = () => {
         {/* Forgot Password */}
         <div className="text-center">
           <Link
-            to="/forgot-password"
+            to={paths.FORGOT_PASSWORD}
             className="text-blue-600 hover:underline text-sm"
           >
             Forgot Password?
@@ -73,21 +73,18 @@ const LoginForm = () => {
         <div className="flex text-center justify-between gap-5">
           <div>
             <Link
-              to="/register"
+              to={paths.REGISTER}
               className="text-blue-600 hover:underline text-sm"
             >
               Create Account
             </Link>
           </div>
           <div>
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline text-sm"
+            <Link to={paths.NEWSFEED}
+                className="text-blue-600 hover:underline text-sm"
             >
-              Visit BS-23 Feed
-            </a>
+                Visit Feed
+            </Link>
           </div>
         </div>
       </form>
