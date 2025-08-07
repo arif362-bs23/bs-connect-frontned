@@ -176,7 +176,7 @@ const ProfilePage = () => {
               <div className="mt-20 md:mt-0 md:ml-44 text-center md:text-left flex-1">
                 <h1 className="text-2xl md:text-3xl font-bold">{user.name}</h1>
                 <p className="text-gray-600 text-sm md:text-base">
-                  {user.follower_count || 0} Followers |{" "}
+                  {user.followers_count || 0} Followers |{" "}
                   {user.following_count || 0} Following
                 </p>
               </div>

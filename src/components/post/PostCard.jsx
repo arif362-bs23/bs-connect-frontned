@@ -3,6 +3,8 @@ import { getRelativeTime } from "../../utility/getDiffTime.js";
 import PostMedia from "./PostMedia.jsx";
 import { useState } from "react";
 import SharedPostWrapper from "./SharedPostWrapper.jsx";
+import ReactionCount from "./ReactionCount.jsx";
+import ActionButtons from "./ActionButtons.jsx";
 
 const PostCard = ({ post,  isOwnProfile }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -90,22 +92,21 @@ const PostCard = ({ post,  isOwnProfile }) => {
       )}
 
       {/* Reaction, comment, share counts */}
-      {/* <div className="px-4 py-2 border-t border-gray-100">
+      <div className="px-4 py-2 border-t border-gray-100">
         <div className="flex items-center justify-between text-sm text-gray-500">
           <ReactionCount count={post.reaction_count} type={post.reaction_type} />
           <div className="flex gap-3">
             <a href={`/post/${post.id}`} className="hover:underline">
               {post.comment_count} comments
             </a>
-            <div>{post.share_count} shares</div>
           </div>
         </div>
-      </div> */}
+      </div>
 
       {/* Like + Comment + Share Buttons */}
-      {/* <div className="flex border-t border-gray-100">
+      <div className="flex border-t border-gray-100">
         <ActionButtons post={post} />
-      </div> */}
+      </div>
     </div>
   );
 };
