@@ -15,6 +15,7 @@ import LogoutPage from './pages/LogoutPage';
 import { paths } from './routes/path';
 import MainLayout from "./components/layout/MainLayout.jsx";
 import PostPage from "./pages/PostPage.jsx";
+import NewsFeedPage from "./pages/NewsFeedPage.jsx";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -48,6 +49,7 @@ function App() {
               <Route path={paths.HOME} element={<Navigate to={paths.LOGIN} replace />} />
               <Route path={paths.PROFILE} element={<ProfilePage />} />
               <Route path={paths.POST} element={<PostPage />} />
+              <Route path={paths.NEWSFEED} element={<NewsFeedPage />} />
             </Route>
 
             {/* Protected Route - Only DashboardPage */}

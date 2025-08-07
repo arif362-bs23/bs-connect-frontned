@@ -8,4 +8,5 @@ export const paths = {
     PROFILE: '/user/:userId',
     LOGOUT: '/logout',
     POST: '/post/:postId',
+    NEWSFEED: '/news-feed',
 };

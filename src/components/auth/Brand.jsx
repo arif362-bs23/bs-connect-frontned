@@ -8,7 +8,7 @@ const Brand = ({ size = 'large' }) => {
       <div>
         <div
           className={`bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg ${
-            isLarge ? 'w-20 h-20' : 'w-16 h-16'
+            isLarge ? 'w-20 h-20' : 'w-12 h-12'
           }`}
         >
           <span className={`text-white font-bold ${isLarge ? 'text-2xl' : 'text-xl'}`}>
