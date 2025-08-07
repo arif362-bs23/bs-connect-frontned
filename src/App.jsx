@@ -14,6 +14,7 @@ import ProfilePage from './pages/ProfilePage';
 import LogoutPage from './pages/LogoutPage';
 import { paths } from './routes/path';
 import MainLayout from "./components/layout/MainLayout.jsx";
+import PostPage from "./pages/PostPage.jsx";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -36,12 +37,14 @@ function App() {
           />
           <Routes>
             {/* Public Routes */}
+            <Route path={paths.HOME} element={<Navigate to={paths.LOGIN} replace />} />
             <Route path={paths.LOGIN}  element={<LoginPage />} />
             <Route path={paths.REGISTER} element={<RegisterPage />} />
             <Route path={paths.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
             <Route path={paths.RESET_PASSWORD} element={<ResetPasswordPage />} />
-
+            <Route path={paths.PROFILE} element={<ProfilePage />} />
             <Route path={paths.LOGOUT} element={<LogoutPage />} />
+            <Route path={paths.POST} element={<PostPage />} />
 
             <Route element={<MainLayout />}>
               <Route path={paths.HOME} element={<Navigate to={paths.LOGIN} replace />} />

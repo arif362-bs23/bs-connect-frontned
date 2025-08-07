@@ -1,8 +1,29 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
+import {friendService} from "../../services/FriendService.js";
+import {toast} from "react-toastify";
+import { useAuth } from '../../hooks/useAuth.js';
 
-const UserCard = ({ user, isFollowing, onFollowToggle }) => {
-  const isCurrentUser = user?.is_current_user;
+const UserCard = ({ user, isFollowing: initialIsFollowing}) => {
+    const { auth } = useAuth();
+    const isCurrentUser = auth?.user?.id === user.id;
+    const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
+
+    const handleFollowToggle = async () => {
+        if (!auth.token) {
+            toast.error("You must be logged in to follow users.");
+            return;
+        }
+
+        try {
+            await friendService.toggleFollow(user.id);
+            setIsFollowing(!isFollowing);
+            toast.success(isFollowing ? `Unfollowed ${user.name}` : `Followed ${user.name}`);
+        } catch (error) {
+            toast.error("Something went wrong. Please try again.");
+        }
+    };
+
 
   return (
     <div className="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg hover:shadow-sm transition-shadow">
@@ -36,7 +57,7 @@ const UserCard = ({ user, isFollowing, onFollowToggle }) => {
       {/* Right: Follow button */}
       {!isCurrentUser && (
         <button
-          onClick={onFollowToggle}
+          onClick={handleFollowToggle}
           className={`px-4 py-1.5 text-sm font-medium rounded-lg transition-colors ${
             isFollowing
               ? 'bg-gray-200 text-gray-800 hover:bg-gray-300'

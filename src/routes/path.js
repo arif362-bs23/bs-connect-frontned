@@ -7,4 +7,5 @@ export const paths = {
     DASHBOARD: '/dashboard',
     PROFILE: '/user/:userId',
     LOGOUT: '/logout',
+    POST: '/post/:postId',
 };
