@@ -9,4 +9,5 @@ export const paths = {
     LOGOUT: '/logout',
     POST: '/post/:postId',
     NEWSFEED: '/news-feed',
+    FIND_FRIENDS: '/friends/find',
 };

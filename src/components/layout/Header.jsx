@@ -88,7 +88,7 @@ const Header = () => {
                                 Home
                             </Link>
                             <Link
-                                to="/find-friend"
+                                to={paths.FIND_FRIENDS}
                                 className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-100/60 rounded-lg transition-all duration-200"
                             >
                                 Find Friends
@@ -147,7 +147,7 @@ const Header = () => {
                         ) : (
                             <Link
                                 to={paths.LOGIN}
-                                className="px-6 py-2.5 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md focus:ring-2 focus:ring-primary-500/20"
+                                className="px-6 py-2.5 text-sm font-medium text-black bg-primary-600 hover:bg-primary-700 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md focus:ring-2 focus:ring-primary-500/20"
                             >
                                 Log in
                             </Link>
@@ -225,7 +225,7 @@ const Header = () => {
                             Home
                         </Link>
                         <Link
-                            to="/find-friend"
+                            to={paths.FIND_FRIENDS}
                             className="block px-4 py-3 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-lg transition-all duration-200"
                             onClick={() => setIsMobileMenuOpen(false)}
                         >
