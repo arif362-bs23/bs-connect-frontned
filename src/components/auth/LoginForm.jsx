@@ -19,7 +19,7 @@ const LoginForm = () => {
     onSuccess: (data) => {
       login(data.token.access_token, data.user);
       toast.success('Login successful!');
-      navigate(`/user/${data.user.id}`);
+      navigate(paths.NEWSFEED);
     },
     onError: (error) => {
       toast.error(error.response?.data?.detail || 'Login failed. Please try again.');
