@@ -16,6 +16,7 @@ import { paths } from './routes/path';
 import MainLayout from "./components/layout/MainLayout.jsx";
 import PostPage from "./pages/PostPage.jsx";
 import NewsFeedPage from "./pages/NewsFeedPage.jsx";
+import FindFriendsPage from "./pages/FindFriendsPage.jsx";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -50,6 +51,7 @@ function App() {
               <Route path={paths.PROFILE} element={<ProfilePage />} />
               <Route path={paths.POST} element={<PostPage />} />
               <Route path={paths.NEWSFEED} element={<NewsFeedPage />} />
+              <Route path={paths.FIND_FRIENDS} element={<FindFriendsPage />} />
             </Route>
 
             {/* Protected Route - Only DashboardPage */}
