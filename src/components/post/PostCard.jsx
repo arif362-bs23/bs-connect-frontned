@@ -5,13 +5,15 @@ import { useState } from "react";
 import SharedPostWrapper from "./SharedPostWrapper.jsx";
 import ReactionCount from "./ReactionCount.jsx";
 import ActionButtons from "./ActionButtons.jsx";
+import { useAuth } from "../../hooks/useAuth.js";
 
-const PostCard = ({ post,  isOwnProfile }) => {
+const PostCard = ({ post,  isOwnProfile=false}) => {
   const [isExpanded, setIsExpanded] = useState(false);
+    const { auth } = useAuth();
 
   if (!post) return <div></div>;
   const user = post.user;
-  const isOwner = isOwnProfile || (user && user.id === post.user_id);
+  const isOwner = isOwnProfile || (auth.user && auth.user.id === post.user.id);
   const isShared = !!post.original_post;
   const hasMedia = post.tagged_media?.length > 0;
 
