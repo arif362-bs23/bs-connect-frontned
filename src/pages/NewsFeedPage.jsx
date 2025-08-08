@@ -3,8 +3,11 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { newsFeedService } from '../services/NewsFeedService';
 import PostCard from '../components/post/PostCard';
 import { toast } from 'react-toastify';
+import CreatePost from "../components/post/CreatePost.jsx";
+import { useAuth } from '../hooks/useAuth';
 
 const NewsFeedPage = () => {
+    const { auth } = useAuth();
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -47,6 +50,9 @@ const NewsFeedPage = () => {
 
   return (
       <div className="max-w-2xl mx-auto py-8">
+        {auth.token && <CreatePost />}
+
+        {/* Infinite Scroll for News Feed */}
         <InfiniteScroll
             dataLength={posts.length}
             next={fetchPosts}
