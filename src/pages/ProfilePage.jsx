@@ -11,6 +11,7 @@ import { useLocation } from "react-router-dom";
 import UserCard from "../components/profile/UserCard";
 import { useAuth } from "../hooks/useAuth";
 import PostCard from "../components/post/PostCard";
+import CreatePost from "../components/post/CreatePost.jsx";
 
 const ProfilePage = () => {
   const { userId } = useParams();
@@ -119,6 +120,7 @@ const ProfilePage = () => {
       case 'posts': 
         return (
           <div className="space-y-4">
+            {isOwnProfile && <CreatePost />}
             <h2 className="text-xl font-bold mb-4">Posts</h2>
             {isPostsLoading ? (
               <div className="flex justify-center py-8">
