@@ -119,3 +119,69 @@ export const getPostById = async (postId) => {
     const response = await api.get(`/posts/${postId.queryKey[1]}`);
     return response.data;
 };
+
+export const useUpdatePost = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async ({ postId, postData, auth }) => {
+            if (!auth.token) {
+                toast.info(
+                    React.createElement('div', null,
+                        'You must be logged in to edit a post. ',
+                        React.createElement('a', { href: '/login', className: 'font-bold text-blue-600 hover:underline ml-1' }, 'Login here')
+                    )
+                );
+                return Promise.reject(new Error("User not authenticated"));
+            }
+            const res = await api.put(`/posts/${postId}/edit`, postData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            return res.data;
+        },
+        onSuccess: (_, { postId }) => {
+            toast.success("Post updated successfully!");
+            queryClient.invalidateQueries(['post', postId]);
+            queryClient.invalidateQueries(['posts']);
+        },
+        onError: (error) => {
+            if (error.message !== "User not authenticated") {
+                console.error("Updating post failed:", error);
+                toast.error(error?.response?.data?.message || "Failed to update post.");
+            }
+        },
+    });
+}
+
+export const useDeletePost = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async ({ postId, auth }) => {
+            if (!auth.token) {
+                toast.info(
+                    React.createElement('div', null,
+                        'You must be logged in to delete a post. ',
+                        React.createElement('a', { href: '/login', className: 'font-bold text-blue-600 hover:underline ml-1' }, 'Login here')
+                    )
+                );
+                return Promise.reject(new Error("User not authenticated"));
+            }
+
+            const res = await api.delete(`/posts/${postId}`);
+            return res.data;
+        },
+        onSuccess: () => {
+            toast.success("Post deleted successfully!");
+            queryClient.invalidateQueries(['posts']);
+        },
+        onError: (error) => {
+            if (error.message !== "User not authenticated") {
+                console.error("Deleting post failed:", error);
+                toast.error(error?.response?.data?.message || "Failed to delete post.");
+            }
+        },
+    });
+}
