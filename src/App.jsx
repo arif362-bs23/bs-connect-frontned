@@ -54,8 +54,7 @@ function App() {
               <Route path={paths.NEWSFEED} element={<NewsFeedPage />} />
               <Route path={paths.FIND_FRIENDS} element={<FindFriendsPage />} />
             </Route>
-            
-            {/* Catch all route - redirect to home */}
+
             <Route path="*" element=<NotFoundPage /> />
           </Routes>
         </Router>
