@@ -49,33 +49,33 @@ const Header = () => {
                     </Link>
 
                     {/* Search Bar (Desktop) */}
-                    <div className="hidden md:flex flex-1 max-w-md mx-8">
-                        <div className="relative w-full">
-                            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg
-                                    className="w-4 h-4 text-gray-400"
-                                    fill="none"
-                                    viewBox="0 0 20 20"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                                    />
-                                </svg>
-                            </div>
-                            <form>
-                                <input
-                                    type="text"
-                                    name="q"
-                                    placeholder="Search people, posts..."
-                                    className="block w-full pl-10 pr-4 py-2.5 text-sm text-gray-900 bg-gray-50/80 border border-gray-300/60 rounded-xl focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all duration-200 placeholder-gray-500"
-                                />
-                            </form>
-                        </div>
-                    </div>
+                    {/*<div className="hidden md:flex flex-1 max-w-md mx-8">*/}
+                    {/*    <div className="relative w-full">*/}
+                    {/*        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">*/}
+                    {/*            <svg*/}
+                    {/*                className="w-4 h-4 text-gray-400"*/}
+                    {/*                fill="none"*/}
+                    {/*                viewBox="0 0 20 20"*/}
+                    {/*            >*/}
+                    {/*                <path*/}
+                    {/*                    stroke="currentColor"*/}
+                    {/*                    strokeLinecap="round"*/}
+                    {/*                    strokeLinejoin="round"*/}
+                    {/*                    strokeWidth="2"*/}
+                    {/*                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"*/}
+                    {/*                />*/}
+                    {/*            </svg>*/}
+                    {/*        </div>*/}
+                    {/*        <form>*/}
+                    {/*            <input*/}
+                    {/*                type="text"*/}
+                    {/*                name="q"*/}
+                    {/*                placeholder="Search people, posts..."*/}
+                    {/*                className="block w-full pl-10 pr-4 py-2.5 text-sm text-gray-900 bg-gray-50/80 border border-gray-300/60 rounded-xl focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all duration-200 placeholder-gray-500"*/}
+                    {/*            />*/}
+                    {/*        </form>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
 
                     {/* Desktop Navigation & User Profile */}
                     <div className="hidden md:flex items-center space-x-6">
