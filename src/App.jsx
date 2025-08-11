@@ -17,6 +17,7 @@ import MainLayout from "./components/layout/MainLayout.jsx";
 import PostPage from "./pages/PostPage.jsx";
 import NewsFeedPage from "./pages/NewsFeedPage.jsx";
 import FindFriendsPage from "./pages/FindFriendsPage.jsx";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -54,18 +55,7 @@ function App() {
               <Route path={paths.FIND_FRIENDS} element={<FindFriendsPage />} />
             </Route>
 
-            {/* Protected Route - Only DashboardPage */}
-            <Route 
-              path="/dashboard" 
-              element={
-                <ProtectedRoute>
-                  <DashboardPage />
-                </ProtectedRoute>
-              } 
-            />
-            
-            {/* Catch all route - redirect to home */}
-            <Route path="*" element={<Navigate to={paths.LOGIN} replace />} />
+            <Route path="*" element=<NotFoundPage /> />
           </Routes>
         </Router>
       </AuthProvider>
